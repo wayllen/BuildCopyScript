@@ -1,5 +1,4 @@
-
-param($SqlServer = '10.213.252.54',$SqlCatalog = 'Tfs_rnotfsat',$bt = 'rel>rtm>9.2%',$DestinationHome = 'D:\Build\9.2\main\')
+param($SqlServer = 'sql server ip',$SqlCatalog = 'DB name',$bt = 'build description',$DestinationHome = 'folder location')
 
 function NewestSuccessfulBuild ($nsf_SqlServer,$nsf_SqlCatalog,$nsf_bt)
 {
@@ -140,18 +139,7 @@ if ($SQLServer -and $SQLCatalog -and $bt -and $DestinationHome)
         	New-Item "$BuildDestination\success.txt" -Type File
         	"Build $BuildNumber Successful!" >> "$BuildDestination\success.txt"
             $CopiedBuildNumber = $BuildNumber
-<##  copy build to bonus folder.         
-            #Copy Build to Bonus Team build folder
-            $bonusDst = "\\10.222.116.66\autoinstall\build\"
-
-            Get-ChildItem $bonusDst | Remove-Item  -Recurse -Force
-
-            $StartTime = Get-Date
-            Write-Host "Robocopy Start time is $StartTime!"
-            & Robocopy.exe $BuildDestination $bonusDst /S /E /MT:150
-            $EndTime = Get-Date
-            Write-Host "Robocopy End time is $EndTime ...."
-##>            
+           
         }
         Write-Output "$(Get-Date -f G) Copy complete, Sleeping 1 hours." 
         Write-Host "$(Get-Date -f G) Copy complete, Sleeping 1 hours." 
